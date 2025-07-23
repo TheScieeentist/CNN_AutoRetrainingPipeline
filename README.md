@@ -97,6 +97,8 @@ If the new model outperforms the current one, it replaces it automatically.
 
 * APScheduler
 
+* Albumentations
+
 * Other standard libraries (os, time, logging, pandas, os, sys etc.)
 
 

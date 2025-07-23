@@ -124,8 +124,8 @@ def main(BASE_DATA_DIR=BASE_DATA_DIR,
 scheduler = BackgroundScheduler(timezone=timezone('Europe/Berlin'))
 scheduler.start()
 
-# adjusting the scheduler to run the main() script at every _________ at ____:
-scheduler.add_job(main, 'cron', day_of_week='tue', hour=13, minute=1)
+# adjusting the scheduler to run the main() script every monday at 08:00:
+scheduler.add_job(main, 'cron', day_of_week='mon', hour=8, minute=0)
 
 logging.basicConfig()
 logging.getLogger('apscheduler').setLevel(logging.DEBUG)
