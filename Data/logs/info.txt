@@ -1,0 +1,2 @@
+In this folder, all documentations about the trainings-dataset will bes tored. 
+Each log contains the image name, its use (train/valid/test) and if it is augmented or the original (see example files).
