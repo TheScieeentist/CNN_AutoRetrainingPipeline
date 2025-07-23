@@ -1,0 +1,2 @@
+All labels related to the trainings-images should be located here! 
+The labels will automatically expanded with the labels from the Data/Import/labels/ folder with every run!
