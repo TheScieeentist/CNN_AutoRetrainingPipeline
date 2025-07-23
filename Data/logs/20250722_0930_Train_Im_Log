@@ -1,0 +1,6 @@
+image_name,train/val/test,augmentation
+AGR_gate01_right_2025-02-10_15-24-02_a004abc6-e7d2-4985-a082-fa4ad4e8e2d4.jpg.jpg,train,original
+AGR_gate02_right_2025-05-27_09-02-11_0c7e8f92-4834-4bf4-9fda-42b03f0fd944.jpg.jpg,train,original
+aug_AGR_gate02_right_2025-05-27_08-32-13_6796cb90-80db-4f3c-b2fd-a495b1ec3b8e_0.jpg,train,augmented
+aug_AGR_gate01_left_2025-05-27_11-34-54_cedec930-d085-4584-9d6a-63356e88762d_0.jpg,train,augmented
+
