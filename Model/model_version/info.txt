@@ -1,0 +1,3 @@
+Here, the new model versions will be stored in new subfolders after every retraining.
+They will consist of a timestamp, the core-CNN-model (YOLO, RT-DETR, etc), the name of the run and an invreasing version number.
+For example "20250722_YOLO_TestTraining_v1" or "20240923_RT-DETR_autoReTrain_v3"...
