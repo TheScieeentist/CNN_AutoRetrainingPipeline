@@ -1,0 +1,2 @@
+All images for traioning should be locvated here and will be expand every run 
+with the images from the Data/Import/images/ folder!!!
