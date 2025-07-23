@@ -1,112 +1,102 @@
-# ds-modeling-pipeline
+# YOLO Auto-Retraining Pipeline for Impurity Detection for Waste-Plants
+This repository contains my 3,5 week final Capstone-project for the Data Science and AI bootcamp at neue fische. 
+It was in colaboration with [WasteAnt](https://wasteant.com/de/ki-basiertes-abfallqualitatsmanagement/).
 
-Here you find a Skeleton project for building a simple model in a python script or notebook and log the results on MLFlow.
+This repo contains a fully automated pipeline for retraining a YOLO model to detect and classify impurities in waste incineration plants. The system is written in Python and scheduled to run periodically. It evaluates whether sufficient new image data is available to trigger a new training cycle — including data preparation, augmentation, model fine-tuning, validation, and versioning. In a last step, the retrained model is comparted with the current base-model in certain metrics. the old model gets replaced if the performance of the retrained model is improved.
 
-There are two ways to do it: 
-* In Jupyter Notebooks:
-    We train a simple model in the [jupyter notebook](notebooks/EDA-and-modeling.ipynb), where we select only some features and do minimal cleaning. The hyperparameters of feature engineering and modeling will be logged with MLflow
+*Although, this auto-retraining pipeline was created for detecting waste impurirties, it can easily be adapted to other approaches by simply adapting the /Data/data.yaml file with the required classes.*
 
-* With Python scripts:
-    The [main script](modeling/train.py) will go through exactly the same process as the jupyter notebook and also log the hyperparameters with MLflow
 
-Data used is the [coffee quality dataset](https://github.com/jldbc/coffee-quality-database).
+***Key Features***
+✅ Automated training cycle based on the number of newly imported images
 
-## Requirements:
+📁 Structured dataset management with version control and data logs
 
-- pyenv with Python: 3.11.3
+🔄 Image augmentation with optional class-specific settings
 
-### Setup
+🧠 YOLOv8-based retraining of a base model
 
-Use the requirements file in this repo to create a new environment.
+📊 Validation and comparison of new vs. current models
 
-```BASH
-make setup
+🗓️ Scheduled retraining every Tuesday at 13:01 (Berlin time)
 
-#or
+🧠 Pipeline Overview
+When more than a threshold (default: 1000) of new images are detected, the pipeline performs the following steps:
 
-pyenv local 3.11.3
-python -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements_dev.txt
-```
+Train/Validation Split:
+Imports new image-label pairs and splits them according to a configurable ratio.
 
-The `requirements.txt` file contains the libraries needed for deployment.. of model or dashboard .. thus no jupyter or other libs used during development.
+Data Augmentation:
+Applies configurable augmentations to selected training images (with optional class-based filtering).
 
-The MLFLOW URI should **not be stored on git**, you have two options, to save it locally in the `.mlflow_uri` file:
+Image Logging:
+Logs which images were used, and whether they were augmented, to a CSV file.
 
-```BASH
-echo http://127.0.0.1:5000/ > .mlflow_uri
-```
+Model Retraining:
+Fine-tunes the YOLO model using the new dataset and stores the resulting model version.
 
-This will create a local file where the uri is stored which will not be added on github (`.mlflow_uri` is in the `.gitignore` file). Alternatively you can export it as an environment variable with
+Validation and Comparison:
+Compares the newly trained model to the existing base model using chosen validation metrics (default: mAP@0.5).
+If the new model outperforms the current one, it replaces it automatically.
 
-```bash
-export MLFLOW_URI=http://127.0.0.1:5000/
-```
 
-This links to your local mlflow, if you want to use a different one, then change the set uri.
+# Directory Structure
+/Pipeline
+├── Core_Scripts/         # Custom logic for data processing, training, etc.
+├── Data/
+│   ├── Base/             # Core training and validation datasets
+│   ├── Import/           # Folder for incoming new image data
+│   └── logs/             # CSV logs tracking used data and training runs
+├── Model/
+│   ├── base_model/       # Holds the current "best" YOLO model
+│   ├── model_versions/   # Stores newly trained model versions
+│   └── model_logs/       # Logs of model performance metrics
 
-The code in the [config.py](modeling/config.py) will try to read it locally and if the file doesn't exist will look in the env var.. IF that is not set the URI will be empty in your code.
+⚙️ Configuration Parameters
+Parameter	Description	Default
+Train_Fraction	Portion of import data used for training	0.7
+Numb_Aug	Number of augmentations per image	1
+Class_Specificity	Class filter for augmentation (0, 1, 2, or None)	2
+Portion	Portion of selected images used for augmentation	0.5
+Validation_Criteria	Metric for comparing models (map50, etc.)	"map50"
+File_Threshold	Minimum number of new images needed to trigger retraining	1000
+epochs	Number of fine-tuning epochs	2
+imagesize	YOLO input image size	640
+batches	Training batch size	16
+LearningRate	Learning rate for training	0.001
 
-## Usage
+⏰ Scheduling
+The retraining pipeline is automatically scheduled to run every Tuesday at 13:01 CET using APScheduler.
 
-### Creating an MLFlow experiment
+🧪 Requirements
+Python 3.8+
 
-You can do it via the GUI or via [command line](https://www.mlflow.org/docs/latest/tracking.html#managing-experiments-and-runs-with-the-tracking-service-api) if you use the local mlflow:
+PyTorch
 
-```bash
-mlflow experiments create --experiment-name 0-template-ds-modeling
-```
+YOLOv8 (ultralytics)
 
-Check your local mlflow
+APScheduler
 
-```bash
-mlflow ui
-```
+Other standard libraries (os, time, logging, pandas, etc.)
 
-and open the link [http://127.0.0.1:5000](http://127.0.0.1:5000)
+🚀 Run Locally
+To run the retraining pipeline manually:
 
-This will throw an error if the experiment already exists. **Save the experiment name in the [config file](modeling/config.py).**
+bash
+Kopieren
+Bearbeiten
+python trigger.py
+To deploy it as a background service with automatic scheduling, ensure trigger.py is running continuously.
 
-In order to train the model and store test data in the data folder and the model in models run:
+📈 Future Work
+ Add a web dashboard for training history and performance monitoring
 
-```bash
-#activate env
-source .venv/bin/activate
+ Implement real-time notifications (e.g., via email or Slack)
 
-python -m modeling.train
-```
+ Optimize augmentation pipeline for speed and class balance
 
-In order to test that predict works on a test set you created run:
+🛠 Maintainer
+Developed and maintained by [Your Name]
+Feel free to contribute or raise issues via GitHub!
 
-```bash
-python modeling/predict.py models/linear data/X_test.csv data/y_test.csv
-```
 
-## About MLFLOW -- delete this when using the template
-
-MLFlow is a tool for tracking ML experiments. You can run it locally or remotely. It stores all the information about experiments in a database.
-And you can see the overview via the GUI or access it via APIs. Sending data to mlflow is done via APIs. And with mlflow you can also store models on S3 where you version them and tag them as production for serving them in production.
-![mlflow workflow](images/0_general_tracking_mlflow.png)
-
-### MLFlow GUI
-
-You can group model trainings in experiments. The granularity of what an experiment is up to your usecase. Recommended is to have an experiment per data product, as for all the runs in an experiment you can compare the results.
-![gui](images/1_gui.png)
-
-### Code to send data to MLFlow
-
-In order to send data about your model you need to set the connection information, via the tracking uri and also the experiment name (otherwise the default one is used). One run represents a model, and all the rest is metadata. For example if you want to save train MSE, test MSE and validation MSE you need to name them as 3 different metrics.
-If you are doing CV you can set the tracking as nested.
-![mlflow code](images/2_code.png)
-
-### MLFlow metadata
-
-There is no constraint between runs to have the same metadata tracked. I.e. for one run you can track different tags, different metrics, and different parameters (in cv some parameters might not exist for some runs so this .. makes sense to be flexible).
-
-- tags can be anything you want.. like if you do CV you might want to tag the best model as "best"
-- params are perfect for hypermeters and also for information about the data pipeline you use, if you scaling vs normalization and so on
-- metrics.. should be numeric values as these can get plotted
-
-![mlflow metadata](images/3_metadata.png)
