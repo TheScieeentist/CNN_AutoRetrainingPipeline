@@ -1,0 +1,8 @@
+path: /home/user/ # Base-path to the folder
+train: Capstone-Project_AutoRetraining/Data/Base/train/images
+val:  Capstone-Project_AutoRetraining/Data/Base/valid/images
+
+names:
+  0: low
+  1: medium
+  2: high
