@@ -4,10 +4,11 @@ It was in colaboration with [WasteAnt](https://wasteant.com/de/ki-basiertes-abfa
 
 This repo contains a fully automated pipeline for retraining a YOLO model to detect and classify impurities in waste incineration plants. The system is written in Python and scheduled to run periodically. It evaluates whether sufficient new image data is available to trigger a new training cycle — including data preparation, augmentation, model fine-tuning, validation, and versioning. In a last step, the retrained model is comparted with the current base-model in certain metrics. the old model gets replaced if the performance of the retrained model is improved.
 
-*Although, this auto-retraining pipeline was created for detecting waste impurirties, it can easily be adapted to other approaches by simply adapting the /Data/data.yaml file with the required classes.*
+#### *Although, this auto-retraining pipeline was created for detecting waste impurirties, it can easily be adapted to other approaches by simply adapting the /Data/data.yaml file with the required classes.*
 
 
-***Key Features***
+## Key Features
+ 
 ✅ Automated training cycle based on the number of newly imported images
 
 📁 Structured dataset management with version control and data logs
@@ -20,7 +21,9 @@ This repo contains a fully automated pipeline for retraining a YOLO model to det
 
 🗓️ Scheduled retraining every Tuesday at 13:01 (Berlin time)
 
-🧠 Pipeline Overview
+
+## Pipeline Overview
+
 When more than a threshold (default: 1000) of new images are detected, the pipeline performs the following steps:
 
 Train/Validation Split:
@@ -41,16 +44,30 @@ If the new model outperforms the current one, it replaces it automatically.
 
 
 # Directory Structure
+
+```text
 /Pipeline
-├── Core_Scripts/         # Custom logic for data processing, training, etc.
+├── Core_Scripts/              # Python core scripts (augmentation, training, etc.)
 ├── Data/
-│   ├── Base/             # Core training and validation datasets
-│   ├── Import/           # Folder for incoming new image data
-│   └── logs/             # CSV logs tracking used data and training runs
+│   ├── Base/                  # Base training and validation data
+│   │   ├── train/
+│   │   │   ├── images/
+│   │   │   └── labels/
+│   │   └── valid/
+│   │       ├── images/
+│   │       └── labels/
+│   ├── Import/                # Newly imported data waiting for processing
+│   │   ├── images/
+│   │   └── labels/
+│   ├── data.yaml              # YOLO-compatible dataset config
+│   └── logs/                  # CSV logs of used images and metadata
 ├── Model/
-│   ├── base_model/       # Holds the current "best" YOLO model
-│   ├── model_versions/   # Stores newly trained model versions
-│   └── model_logs/       # Logs of model performance metrics
+│   ├── base_model/            # Current best YOLO model
+│   ├── model_versions/        # All past training runs
+│   └── model_logs/
+│       └── Model_Version_Log.csv  # Performance metrics of each model
+
+```
 
 ⚙️ Configuration Parameters
 Parameter	Description	Default
