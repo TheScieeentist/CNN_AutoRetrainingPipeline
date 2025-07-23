@@ -1,1 +1,0 @@
-All images for training should be here and will be expand every run with the images from the Data/Import/images folder!
