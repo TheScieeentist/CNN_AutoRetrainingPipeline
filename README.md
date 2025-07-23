@@ -69,51 +69,34 @@ If the new model outperforms the current one, it replaces it automatically.
 
 ```
 
-⚙️ Configuration Parameters
-Parameter	Description	Default
-Train_Fraction	Portion of import data used for training	0.7
-Numb_Aug	Number of augmentations per image	1
-Class_Specificity	Class filter for augmentation (0, 1, 2, or None)	2
-Portion	Portion of selected images used for augmentation	0.5
-Validation_Criteria	Metric for comparing models (map50, etc.)	"map50"
-File_Threshold	Minimum number of new images needed to trigger retraining	1000
-epochs	Number of fine-tuning epochs	2
-imagesize	YOLO input image size	640
-batches	Training batch size	16
-LearningRate	Learning rate for training	0.001
+## ⚙️ Configuration Parameters
 
-⏰ Scheduling
-The retraining pipeline is automatically scheduled to run every Tuesday at 13:01 CET using APScheduler.
+| Parameter            | Description                                                                 | Default       |
+|----------------------|-----------------------------------------------------------------------------|---------------|
+| `Train_Fraction`     | Fraction of imported images used for training                               | `0.7`         |
+| `Numb_Aug`           | Number of augmentations per image                                           | `2`           |
+| `Class_Specificity`  | Class filter for augmentation (`0`, `1`, `2`, or `None`)                    | `None`        |
+| `Portion`            | Portion of selected images used for augmentation                            | `0.5`         |
+| `Validation_Criteria`| Metric to evaluate models                                                   | `"map50"`     |
+| `File_Threshold`     | Minimum number of new images required to trigger retraining                 | `1000`        |
+| `epochs`             | Number of training epochs for fine-tuning                                   | `200`         |
+| `imagesize`          | Input image size for YOLO                                                   | `640`         |
+| `batches`            | Batch size for training                                                     | `16`          |
+| `LearningRate`       | Learning rate for training                                                  | no default!   |
+| `TrainingRunName`    | Name used to label this training run       
 
-🧪 Requirements
-Python 3.8+
 
-PyTorch
 
-YOLOv8 (ultralytics)
 
-APScheduler
+## 🧪 Requirements: 
+* Python 3.8+
 
-Other standard libraries (os, time, logging, pandas, etc.)
+* PyTorch
 
-🚀 Run Locally
-To run the retraining pipeline manually:
+* YOLOv8 (ultralytics)
 
-bash
-Kopieren
-Bearbeiten
-python trigger.py
-To deploy it as a background service with automatic scheduling, ensure trigger.py is running continuously.
+* APScheduler
 
-📈 Future Work
- Add a web dashboard for training history and performance monitoring
-
- Implement real-time notifications (e.g., via email or Slack)
-
- Optimize augmentation pipeline for speed and class balance
-
-🛠 Maintainer
-Developed and maintained by [Your Name]
-Feel free to contribute or raise issues via GitHub!
+* Other standard libraries (os, time, logging, pandas, os, sys etc.)
 
 
