@@ -20,43 +20,44 @@ from Pipeline.Core_Scripts.Compare_Models import compare_metrics
 from Pipeline.Core_Scripts.ValLog_and_Compare_Models import val_and_compare
 
 
+BASE_DIR = 'home/usr/etc...' # please adjust to your system
 
-DATA_MAIN_DIR = '/home/appuser/src/Pipeline/Data'
+DATA_MAIN_DIR = f'{BASE_DIR}/Data' # please adjust to your system
 
-CORE_SCRIPTS_DIR = '/home/appuser/src/Pipeline/Core_Scripts'
+CORE_SCRIPTS_DIR = f'{BASE_DIR}/Core_Scripts'
 
 
-MODEL_MAIN_DIR = '/home/appuser/src/Pipeline/Model'
-MODEL_BASEMODEL_DIR = '/home/appuser/src/Pipeline/Model/base_model'
-MODEL_LOGS_DIR = '/home/appuser/src/Pipeline/Model/model_logs/Model_Version_Log.csv'
-MODEL_VERSIONS_DIR = '/home/appuser/src/Pipeline/Model/model_versions'
+MODEL_MAIN_DIR = f'{BASE_DIR}/Model'
+MODEL_BASEMODEL_DIR = f'{BASE_DIR}/Model/base_model'
+MODEL_LOGS_DIR = f'{BASE_DIR}/Model/model_logs/Model_Version_Log.csv'
+MODEL_VERSIONS_DIR = 'f{BASE_DIR}/Model/model_versions'
 
-DATA_LOGS_DIR = '/home/appuser/src/Pipeline/Data/logs'
+DATA_LOGS_DIR = f'{BASE_DIR}/Data/logs'
 
-BASE_DATA_DIR = '/home/appuser/src/Pipeline/Data/Base'
-BASE_YAML_DIR = '/home/appuser/src/Pipeline/Data/data.yaml'
+BASE_DATA_DIR = f'{BASE_DIR}/Data/Base'
+BASE_YAML_DIR = f'{BASE_DIR}/Data/data.yaml'
 
-BASE_TRAIN_DIR = '/home/appuser/src/Pipeline/Data/Base/train'
-BASE_TRAIN_IM_DIR = '/home/appuser/src/Pipeline/Data/Base/train/images'
-BASE_TRAIN_LB_DIR = '/home/appuser/src/Pipeline/Data/Base/train/labels'
+BASE_TRAIN_DIR = f'{BASE_DIR}/Data/Base/train'
+BASE_TRAIN_IM_DIR = f'{BASE_DIR}/Data/Base/train/images'
+BASE_TRAIN_LB_DIR = f'{BASE_DIR}/Data/Base/train/labels'
 
-BASE_VAL_DIR = '/home/appuser/src/Pipeline/Data/Base/valid'
-BASE_VAL_IM_DIR = '/home/appuser/src/Pipeline/Data/Base/valid/images'
-BASE_VAL_LB_DIR = '/home/appuser/src/Pipeline/Data/Base/valid/labels'
+BASE_VAL_DIR = f'{BASE_DIR}/Data/Base/valid'
+BASE_VAL_IM_DIR = f'{BASE_DIR}/Data/Base/valid/images'
+BASE_VAL_LB_DIR = f'{BASE_DIR}/Data/Base/valid/labels'
 
-IMPORT_DATA_DIR = '/home/appuser/src/Pipeline/Data/Import'
-IMPORT_IM_DIR = '/home/appuser/src/Pipeline/Data/Import/images'
-IMPORT_LB_DIR = '/home/appuser/src/Pipeline/Data/Import/labels'
+IMPORT_DATA_DIR = f'{BASE_DIR}/Data/Import'
+IMPORT_IM_DIR = f'{BASE_DIR}/Data/Import/images'
+IMPORT_LB_DIR = f'{BASE_DIR}/Data/Import/labels'
 
 RSEED = 42
 Train_Fraction = 0.7    # Fraction of images added to training-dataset from new import!
-Numb_Aug = 1            # Number of augmentations per selected image. Maximum is 5!
-Class_Specificity = 2   # Class selection for image augmentation, current options are 0, 1, 2 or None
-Portion = 0.5           # Defines the fraction of selected images used for augmentation. 
+Numb_Aug = 2            # Number of augmentations per selected image. Maximum is 5!
+Class_Specificity = None   # Class selection for image augmentation, current options are 0, 1, 2 or None
+Portion = 0.4           # Defines the fraction of selected images used for augmentation. 
                         # Caution: this only applies if Class_Specificity = None!
 
 Model = YOLO
-ModelWeights = "/home/appuser/src/Pipeline/Model/base_model/WasteImpurityMultiClass_agr_bunker_V5.pt"
+ModelWeights = f'{BASE_DIR}/Model/base_model/yolo11n.pt'
 Validation_Criteria = "map50" # map50 is default, other options are 
 
 
@@ -82,7 +83,7 @@ def main(BASE_DATA_DIR=BASE_DATA_DIR,
          Model=Model,
          MODEL_VERSIONS_DIR=MODEL_VERSIONS_DIR,
          TrainingRunName='Test_Training',
-         epochs=2, 
+         epochs=200, 
          imagesize=640, 
          batches=16, 
          LearningRate=0.001,
