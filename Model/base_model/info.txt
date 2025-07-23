@@ -1,0 +1,2 @@
+here, the basemodel(-weights) should be stored. For typical YOLO-models it is called 'best.pt' a training.
+Here, I stored the common Yolo11n.pt as example.
