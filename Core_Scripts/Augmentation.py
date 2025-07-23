@@ -59,13 +59,7 @@ def augmentation(SOURCE_IMAGE_DIR: Path, SOURCE_LABEL_DIR: Path, Rseed = 42, Num
     aug_combi_5 = A.Compose([   A.Equalize(mask_params=['bboxes'], p=1.0),
                                 A.VerticalFlip(p=1.0)],
                                 bbox_params=A.BboxParams(format='yolo', label_fields=['class_labels'])
-                                )
-    
-    aug_combi_6 = A.Compose([   A.AutoContrast(ignore=255, p=1.0),
-                                A.Defocus(radius=[1, 5], alias_blur=[0.1, 0.5])],
-                                bbox_params=A.BboxParams(format='yolo', label_fields=['class_labels'])
-                                )
-        
+                                )        
 
 
     # choosing one of the augmentation-combinations for each augmentation of the image
