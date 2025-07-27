@@ -1,6 +1,7 @@
 # YOLO Auto-Retraining Pipeline for Impurity Detection for Waste-Plants
 This repository contains my 3,5 week final Capstone-project for the Data Science and AI bootcamp at neue fische. 
-It was in colaboration with [WasteAnt](https://wasteant.com/de/ki-basiertes-abfallqualitatsmanagement/).This project serves mainly as part of my personal portfolio. You are welcome to fork or explore the code, but please understand that it may not be actively maintained.
+It was in colaboration with [WasteAnt](https://wasteant.com/de/ki-basiertes-abfallqualitatsmanagement/).
+This project serves mainly as part of my personal portfolio. You are welcome to fork or explore the code, but please understand that it may not be actively maintained.
 
 This repo contains a fully automated pipeline for retraining a YOLO model to detect and classify impurities in waste incineration plants. The system is written in Python and scheduled to run periodically. It evaluates whether sufficient new image data is available to trigger a new training cycle — including data preparation, augmentation, model fine-tuning, validation, and versioning. In a last step, the retrained model is comparted with the current base-model in certain metrics. The old model gets replaced if the performance of the retrained model is improved.
 
