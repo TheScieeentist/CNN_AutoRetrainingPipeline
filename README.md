@@ -92,9 +92,11 @@ If the new model outperforms the current one, it replaces it automatically.
 
 
 ## 🧪 Requirements: 
-* Python 3.8+
+* Python 3.10+
 
 * PyTorch
+
+* TensorFlow
 
 * YOLOv8 (ultralytics)
 
