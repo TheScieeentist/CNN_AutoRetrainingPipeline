@@ -87,7 +87,7 @@ If the new model outperforms the current one, it replaces it automatically.
 | `imagesize`          | Input image size for YOLO                                                   | `640`         |
 | `batches`            | Batch size for training                                                     | `16`          |
 | `LearningRate`       | Learning rate for training                                                  | no default!   |
-| `TrainingRunName`    | Name used to label this training run       
+| `TrainingRunName`    | Name used to label this training run                                        | no default!   |
 
 
 
@@ -99,7 +99,7 @@ If the new model outperforms the current one, it replaces it automatically.
 
 * TensorFlow
 
-* YOLOv8 (ultralytics)
+* YOLOv11 (ultralytics)
 
 * APScheduler
 
