@@ -11,7 +11,7 @@ from ultralytics import YOLO
 from apscheduler.schedulers.background import BackgroundScheduler
 from pytz import timezone
 
-# Here, the modules are called from the core_scripts.
+# Here, the modules are called from the scripts in the core_scripts folder.
 from CNN_AutoRetrainingPipeline.Core_Scripts.Train_Val_Split import test_val_split
 from CNN_AutoRetrainingPipeline.Core_Scripts.Augmentation import augmentation
 from CNN_AutoRetrainingPipeline.Core_Scripts.Save_To_List import image_list_to_csv
