@@ -11,13 +11,15 @@ from ultralytics import YOLO
 from apscheduler.schedulers.background import BackgroundScheduler
 from pytz import timezone
 
-from Pipeline.Core_Scripts.Train_Val_Split import test_val_split
-from Pipeline.Core_Scripts.Augmentation import augmentation
-from Pipeline.Core_Scripts.Save_To_List import image_list_to_csv
-from Pipeline.Core_Scripts.Re_Training import fine_tuning
-from Pipeline.Core_Scripts.Run_Val import run_val
-from Pipeline.Core_Scripts.Compare_Models import compare_metrics
-from Pipeline.Core_Scripts.ValLog_and_Compare_Models import val_and_compare
+# Here, the modules are called from the core_scripts.
+from CNN_AutoRetrainingPipeline.Core_Scripts.Train_Val_Split import test_val_split
+from CNN_AutoRetrainingPipeline.Augmentation import augmentation
+from CNN_AutoRetrainingPipeline.Save_To_List import image_list_to_csv
+from CNN_AutoRetrainingPipeline.Core_Scripts.Re_Training import fine_tuning
+#from CNN_AutoRetrainingPipeline.Core_Scripts.Run_Val import run_val
+#from CNN_AutoRetrainingPipeline.Core_Scripts.Compare_Models import compare_metrics   # I replaced both with the combined 'val_and_compare' module
+from CNN_AutoRetrainingPipeline.Core_Scripts.ValLog_and_Compare_Models import val_and_compare
+
 
 
 BASE_DIR = 'home/usr/etc...' # please adjust to your system
